@@ -21,13 +21,14 @@ $result = $conn->query("SELECT * FROM books");
 </head>
 
 <body>
+  <div id="vanta-bg"></div>
   <div class="book-container">
     <div class="header">
-      <h2>📖 Book Information</h2>
-      <a href="../form/form.php" class="btn-add">➕ Add Book</a>
+      <h2><span>📖</span>Book Information</h2>
+      <a href="../form/form.php" class="btn-add">Add Book</a>
     </div>
 
-    <div class="table-section">
+    <div class="table-wrapper">
       <table class="book-table">
         <thead>
           <tr>
@@ -62,10 +63,29 @@ $result = $conn->query("SELECT * FROM books");
         </tbody>
       </table>
     </div>
-
   </div>
 
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    VANTA.WAVES({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      gyroControls: false,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xd452f
+    });
+  });
+</script>
+
+
 
 </html>
+
 <?php $conn->close(); ?>

@@ -9,29 +9,60 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
   // Create connection
   $conn = new mysqli($servername, $username, $password, $dbname);
 
-  // Check connection
   if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
   }
 
-  // Get form values
   $bookName = $_POST['bookName'];
   $author = $_POST['author'];
   $bookType = $_POST['bookType'];
   $description = $_POST['description'];
 
-  // Insert without book_id first
   $sql = "INSERT INTO books (book_name, author, book_type, description)
           VALUES ('$bookName', '$author', '$bookType', '$description')";
 
   if ($conn->query($sql) === TRUE) {
     $last_id = $conn->insert_id;
-
-    // Set book_id to match the id
     $updateBookId = "UPDATE books SET book_id = '$last_id' WHERE id = $last_id";
     $conn->query($updateBookId);
 
-    echo "<script>alert('📚 Book registered successfully!'); window.location.href='../main/table.php';</script>";
+    echo '
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Book Registered</title>
+      <link rel="stylesheet" href="form.css" />
+      <script>
+        setTimeout(function(){
+          window.location.href = "../main/table.php";
+        }, 1500);
+      </script>
+    </head>
+    <body>
+      <div id="vanta-bg"></div>
+      <div class="success">
+        <h2>Book Registered Successfully!</h2>
+        <p>Redirecting to book list...</p>
+      </div>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+      <script>
+        VANTA.WAVES({
+          el: "#vanta-bg",
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          scale: 1.00,
+          scaleMobile: 1.00,
+          color: 0xd452f
+            });
+      </script>
+    </body>
+    </html>';
     exit;
   } else {
     echo "Error: " . $conn->error;
@@ -43,13 +74,16 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="form.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Register New Book</title>
+  <link rel="stylesheet" href="form.css" />
 </head>
+
 <body>
+  <div id="vanta-bg"></div>
   <div class="container">
     <h2>📚 Register New Book</h2>
     <form class="register-form" action="<?= htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST">
@@ -73,8 +107,26 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     </form>
 
     <div class="btn">
-      <p>🔙 <a href="../main/table.php">Back to Table</a></p>
+      <p><a href="../main/table.php">Back to Table</a></p>
     </div>
   </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r125/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.waves.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      VANTA.WAVES({
+        el: "#vanta-bg",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200.00,
+        minWidth: 200.00,
+        scale: 1.00,
+        scaleMobile: 1.00,
+        color: 0xd452f
+      });
+    });
+  </script>
 </body>
+
 </html>
