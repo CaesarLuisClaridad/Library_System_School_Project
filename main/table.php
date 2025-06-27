@@ -49,8 +49,8 @@ $result = $conn->query("SELECT * FROM books");
                 <td><?= $row['book_type']; ?></td>
                 <td><?= $row['description']; ?></td>
                 <td>
-                  <a href="../edit/edit.php?id=<?= $row['id']; ?>" class="btn-edit">✏️ Edit</a>
-                  <a href="delete.php?id=<?= $row['id']; ?>" class="btn-delete" onclick="return confirm('Are you sure?');">🗑️ Delete</a>
+                  <a href="../edit/edit.php?id=<?= $row['id']; ?>" class="btn-edit">Edit</a>
+                  <a href="delete.php?id=<?= $row['id']; ?>" class="btn-delete" onclick="return confirm('Are you sure?');">Delete</a>
                 </td>
               </tr>
             <?php endwhile; ?>
