@@ -83,9 +83,6 @@ $result = $conn->query("SELECT * FROM books");
     });
   });
 </script>
-
-
-
 </html>
 
 <?php $conn->close(); ?>
